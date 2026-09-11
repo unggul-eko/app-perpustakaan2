@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMemberRequest;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    private array $members = [
+        ['id'=> 1, 'name'=>'Budi Santoso', 'nim'=>200101001, 'email'=>'budi@gmail.com', 'nomor_telepon'=> '081234567890', 'alamat'=> 'Jl. Mawar No. 123', 'status'=> 'Aktif'],
+        ['id'=> 2, 'name'=>'Siti Aminah', 'nim'=>200101002, 'email'=>'siti@gmail.com', 'nomor_telepon'=> '081234567891', 'alamat'=> 'Jl. Melati No. 124', 'status'=> 'Tidak Aktif'],
+        ['id'=> 3, 'name'=>'Rina Lestari', 'nim'=>200101003, 'email'=>'rina@gmail.com', 'nomor_telepon'=> '081234567892', 'alamat'=> 'Jl. Anggrek No. 125', 'status'=> 'Aktif'],
+    ];
+
     /**
      * Display a listing of the resource.
      */
         public function index()
     {
-        return 'MemberController@index';
+        $members = $this->members;
+
+        return view('members.index', compact('members'));
     }
 
     /**
@@ -19,15 +28,19 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return 'MemberController@create';
+        return view('members.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreMemberRequest $request)
     {
-        return 'MemberController@store';
+       $validated = $request->validated();
+
+        return redirect()->route('members.index')
+            ->with('success', "Data {$validated['name']} berhasil ditambahkan (data dummy, belum tersimpan ke database).");
+    
     }
 
     /**
