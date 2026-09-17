@@ -1,8 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Tambah Kategori</title>
+{{-- File: resources/views/categories/create.blade.php --}}
+@extends('layouts.app')
+
+@section('title', 'Daftar Kategori')
+
+@section('content')
+<a href="{{ route('categories.index') }}" class="btn btn-secondary mb-3">← Kembali ke daftar</a>
+
+<title>Tambah Kategori</title>
     <style>
         body { font-family: sans-serif; margin: 40px; max-width: 500px; }
         label { display: block; margin-top: 12px; font-weight: bold; }
@@ -32,5 +36,5 @@
 
         <button type="submit" class="btn">Simpan</button>
     </form>
-</body>
-</html>
+     <p><em>Catatan: data di atas masih data dummy (array statis di Controller). Form tambah/edit anggota dan CRUD lengkap anggota baru dibuat mulai Pertemuan 5.</em></p>
+@endsection

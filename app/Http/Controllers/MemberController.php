@@ -7,16 +7,14 @@ use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
+    // File: app/Http/Controllers/MemberController.php
     private array $members = [
-        ['id'=> 1, 'name'=>'Budi Santoso', 'nim'=>200101001, 'email'=>'budi@gmail.com', 'nomor_telepon'=> '081234567890', 'alamat'=> 'Jl. Mawar No. 123', 'status'=> 'Aktif'],
-        ['id'=> 2, 'name'=>'Siti Aminah', 'nim'=>200101002, 'email'=>'siti@gmail.com', 'nomor_telepon'=> '081234567891', 'alamat'=> 'Jl. Melati No. 124', 'status'=> 'Tidak Aktif'],
-        ['id'=> 3, 'name'=>'Rina Lestari', 'nim'=>200101003, 'email'=>'rina@gmail.com', 'nomor_telepon'=> '081234567892', 'alamat'=> 'Jl. Anggrek No. 125', 'status'=> 'Aktif'],
+        ['id' => 1, 'nama' => 'Siti Aminah', 'nim' => '2310501001', 'email' => 'siti.aminah@pens.ac.id', 'nomor_telepon' => '081234567890', 'status' => 'aktif'],
+        ['id' => 2, 'nama' => 'Budi Santoso', 'nim' => '2310501002', 'email' => 'budi.santoso@pens.ac.id', 'nomor_telepon' => '081298765432', 'status' => 'aktif'],
+        ['id' => 3, 'nama' => 'Dewi Lestari', 'nim' => '2310501003', 'email' => 'dewi.lestari@pens.ac.id', 'nomor_telepon' => '081211122233', 'status' => 'nonaktif'],
     ];
 
-    /**
-     * Display a listing of the resource.
-     */
-        public function index()
+    public function index()
     {
         $members = $this->members;
 
