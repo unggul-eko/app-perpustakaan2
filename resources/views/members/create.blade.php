@@ -19,9 +19,9 @@
     <form action="{{ route('members.store') }}" method="POST">
         @csrf
 
-        <label for="name">Nama Member</label>
-        <input type="text" name="name" id="name" value="{{ old('name') }}">
-        @error('name') <div class="error">{{ $message }}</div> @enderror
+        <label for="nama">Nama Member</label>
+        <input type="text" name="nama" id="nama" value="{{ old('nama') }}">
+        @error('nama') <div class="error">{{ $message }}</div> @enderror
 
         <label for="nim">NIM</label>
         <input type="text" name="nim" id="nim" value="{{ old('nim') }}">

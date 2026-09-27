@@ -4,19 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMemberRequest;
 use Illuminate\Http\Request;
+use App\Models\Member;
 
 class MemberController extends Controller
 {
     // File: app/Http/Controllers/MemberController.php
-    private array $members = [
-        ['id' => 1, 'nama' => 'Siti Aminah', 'nim' => '2310501001', 'email' => 'siti.aminah@pens.ac.id', 'nomor_telepon' => '081234567890', 'status' => 'aktif'],
-        ['id' => 2, 'nama' => 'Budi Santoso', 'nim' => '2310501002', 'email' => 'budi.santoso@pens.ac.id', 'nomor_telepon' => '081298765432', 'status' => 'aktif'],
-        ['id' => 3, 'nama' => 'Dewi Lestari', 'nim' => '2310501003', 'email' => 'dewi.lestari@pens.ac.id', 'nomor_telepon' => '081211122233', 'status' => 'nonaktif'],
-    ];
+   
 
     public function index()
     {
-        $members = $this->members;
+        $members = Member::paginate(10);
 
         return view('members.index', compact('members'));
     }
@@ -36,8 +33,10 @@ class MemberController extends Controller
     {
        $validated = $request->validated();
 
+       Member::create($validated);
+
         return redirect()->route('members.index')
-            ->with('success', "Data {$validated['name']} berhasil ditambahkan (data dummy, belum tersimpan ke database).");
+            ->with('success', "Data {$validated['nama']} berhasil ditambahkan.");
     
     }
 
@@ -54,15 +53,33 @@ class MemberController extends Controller
      */
     public function edit(string $id)
     {
-        return "MemberController@edit, id: {$id}";
+        // cari id yang sesuai
+        $member = Member::findOrFail($id);
+
+        if (!$member) {
+            abort(404, 'Member tidak ditemukan');
+        }
+
+        return view('members.edit', compact('member'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreMemberRequest $request, string $id)
     {
-        return "MemberController@update, id: {$id}";
+        // cari id yang sesuai
+        $member = Member::findOrFail($id);
+
+        if (!$member) {
+            abort(404, 'Member tidak ditemukan');
+        }
+
+        $validated = $request->validated();
+        $member->update($validated);
+
+        return redirect()->route('members.index')
+            ->with('success', "Data {$validated['nama']} berhasil diupdate.");
     }
 
     /**
@@ -70,7 +87,18 @@ class MemberController extends Controller
      */
     public function destroy(string $id)
     {
-        return "MemberController@destroy, id: {$id}";
-        
+        $member = Member::findOrFail($id);
+        $member->delete();
+
+        return redirect()->route('members.index')
+            ->with('success', 'Member berhasil dihapus.');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('search');
+        $members = Member::where('nama', 'LIKE', "%{$query}%")->paginate(10);
+
+        return view('members.index', compact('members'));
     }
 }

@@ -22,23 +22,27 @@ class StoreMemberRequest extends FormRequest
      */
     public function rules(): array
     {
+        $memberId = $this->route('member');
+
         return [
-            'name'=>'required',
-            'nim'=>'required',
-            'email'=>'required',
+            'nama'=>'required',
+            'nim'=>'required|unique:members,nim,' . $memberId,
+            'email'=>'required|email|unique:members,email,' . $memberId,
             'nomor_telepon'=>'required',
             'alamat'=>'required',
             'status'=>'required',
-
         ];
     }
 
     public function messages(): array
     {
         return [
-            'name.required'         => 'Nama wajib diisi.',
+            'nama.required'         => 'Nama wajib diisi.',
             'nim.required'          => 'NIM wajib diisi.',
+            'nim.unique'            => 'NIM sudah terdaftar.',
             'email.required'        => 'Email wajib diisi.',
+            'email.email'           => 'Format email tidak valid.',
+            'email.unique'          => 'Email sudah terdaftar.',
             'nomor_telepon.required'=> 'Nomor Telepon wajib diisi.',
             'alamat.required'       => 'Alamat wajib diisi.',
             'status.required'       => 'Status wajib diisi.',
