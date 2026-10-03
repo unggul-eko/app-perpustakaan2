@@ -62,12 +62,8 @@
         </tr>
         <tr>
             <th>Kategori</th>
-            <td>{{ $book['kategori'] }}</td>
+            <td>{{ $book['category']['nama_kategori'] }}</td>
         </tr>
-        <tr?>
-            <th>ID Kategori</th>
-            <th> {{ $book['Category_id'] }}</th>
-            </tr>
     </table>
 </body>
 
