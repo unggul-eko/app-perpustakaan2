@@ -8,7 +8,7 @@ class Book extends Model
 {
     protected $fillable = [
         'judul', 'penulis', 'penerbit', 'tahun_terbit',
-        'isbn', 'stock', 'category_id', 'sampul',
+        'isbn', 'stok', 'category_id', 'sampul',
     ];
 
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
