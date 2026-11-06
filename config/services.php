@@ -1,5 +1,6 @@
 <?php
 
+
 return [
 
     /*
@@ -35,4 +36,7 @@ return [
         ],
     ],
 
+    'internal_api' => [
+        'base_url' => env('INTERNAL_API_URL', 'http://127.0.0.1:8011'),
+    ],
 ];
