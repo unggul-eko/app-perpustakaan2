@@ -11,7 +11,7 @@ class MemberController extends Controller
 {
     public function index()
     {
-        $members = Member::paginate(10);
+        $members = Member::orderBy('id')->paginate(10);
 
         return MemberResource::collection($members);
     }
